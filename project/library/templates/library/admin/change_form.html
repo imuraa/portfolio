@@ -23,6 +23,7 @@
                                     <div class="readonly">{{ field.contents }}</div>
                                 {% else %}
                                     {{ field.field }}
+                                    <div>初期値：{{ field.field.initial }}</div> <!--追記-->
                                     {% if field.field.name == 'isbn' %} <!--追記-->
                                         <button type="submit" name="get_info_btn">書籍情報取得</button> <!--追記-->
                                     {% endif %} <!--追記-->
@@ -41,7 +42,6 @@
     {% endfor %}
 </fieldset>
 <!--以上、templates/admin/includes/fieldset.htmlの内容-->
-
 
 {% endfor %}
 {% endblock %}
