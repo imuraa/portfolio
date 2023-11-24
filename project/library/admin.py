@@ -1,8 +1,12 @@
 from django.contrib import admin
-from .models import Book
-from .forms import BookAdminForm
+from .models import Book, Location
+from .forms import BookAdminForm, LocationAdminForm
 import requests
 #from django.http import HttpResponse
+
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ["location"]
+
 
 class BookAdmin(admin.ModelAdmin):
     change_form_template = 'library/admin/change_form.html'
@@ -34,3 +38,4 @@ class BookAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Book, BookAdmin)
+admin.site.register(Location, LocationAdmin)

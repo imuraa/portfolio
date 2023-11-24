@@ -23,9 +23,9 @@
                                     <div class="readonly">{{ field.contents }}</div>
                                 {% else %}
                                     {{ field.field }}
-                                    <div>初期値：{{ field.field.initial }}</div> <!--追記-->
-                                    {% if field.field.name == 'isbn' %} <!--追記-->
-                                        <input type="button" value="書籍情報取得" id="get_info_btn"> <!--追記-->
+                                    <!--書籍情報取得ボタン-->
+                                    {% if field.field.name == 'isbn' %} 
+                                        <input type="button" value="書籍情報取得" id="get_info_btn">
                                         <script>
                                             async function getInfo(){
                                                 const isbn = document.getElementById("id_isbn").value;
@@ -42,7 +42,7 @@
                                             let button = document.getElementById('get_info_btn');
                                             button.addEventListener('click', getInfo);
                                         </script>
-                                    {% endif %} <!--追記-->
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         </div>
