@@ -1,23 +1,4 @@
 from django.db import models
-
-# BOOK_CATEGORY_CHOICES = (
-#     ("literature_novel", "文学、小説"),
-#     ("magazine", "雑誌"),
-#     ("comics", "漫画"),
-#     ("non-fiction_culture", "ノンフィクション、教養")
-#     ("map_travel", "地図、旅行ガイド"),
-#     ("hobby_sports_practical", "趣味、スポーツ、実用"),
-#     ("housing_living_childcare", "住まい、暮らし、育児"),
-#     ("learning_education", "学習、教育"),
-#     ("children's-book_picture-book", "児童書、絵本"),
-#     ("computer_internet", "コンピュータとネット"),
-#     ("natural-science_technology", "自然科学と技術"),
-#     ("health_medicine", "健康と医学"),
-#     ("art_entertainment", "アート、エンタメ"),
-#     ("business_economy", "ビジネス、経済"),
-#     ("humanities_society", "人文、社会"),
-#     ("ancient-documents", "古書、古文書"),
-# )
 from django.core.exceptions import ValidationError
 
 def validate_blank_category(value):
@@ -52,7 +33,7 @@ class Book(models.Model):
     class Meta:
         verbose_name = '書籍'
         verbose_name_plural = '書籍'
-    isbn = models.CharField(max_length=13,verbose_name="ISBNコード")
+    isbn = models.CharField(max_length=13,verbose_name="ISBNコード", help_text='13桁の数字（ハイフン抜き）を入力して下さい')
     title = models.CharField(max_length=255,verbose_name="タイトル")
     author = models.CharField(max_length=60,verbose_name="著者")
     publisher = models.CharField(max_length=50,verbose_name="出版社")

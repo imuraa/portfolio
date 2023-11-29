@@ -1,0 +1,91 @@
+{% extends 'library/layout.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+        <!--書籍検索フォーム-->
+        <form action="{% url 'search_book' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="検索">
+        </form>
+
+
+        <!--検索結果の表示-->
+
+        {{ msg }}
+
+        <table>
+        <tr>
+            <th>ID</th>
+            <th> </th>
+            <th>タイトル</th>
+            <th>著者</th>
+            <th>出版社</th>
+            <th>出版日</th>
+            <th>版数</th>
+            <th>ISBNコード</th>
+            <th>カテゴリ</th>
+        </tr>
+        {% for item in data %}
+        <tr>
+            <th>{{ item.id }}</th>
+            {% if item.image_url %}
+            <th><img src="{{ item.image_url }}" style="width:50px; height:70px;"></th>
+            {% else %}
+            <th><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></th>
+            {% endif %}
+            <th>{{ item.title }}</th>
+            <th>{{ item.author }}</th>
+            <th>{{ item.publisher }}</th>
+            <th>{{ item.pub_date }}</th>
+            <th>第{{ item.version }}版</th>
+            <th>{{ item.isbn }}</th>
+            <th>{{ item.category }}</th>
+        </tr>
+        {% endfor %}
+        </table>
+
+        <!--ページネーション-->
+        <ul>
+            {% if data.has_previous %}
+            <li >
+                <a href="{% url 'search_book' %}">&laquo; 最初へ</a>
+            </li>
+            <li>
+                <a href="{% url 'search_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
+            </li>
+            {% else %}
+            <li>
+                <a>&laquo; 最初へ</a>
+            </li>
+            <li>
+                <a>&laquo; 前へ</a>
+            </li>
+            {% endif %}
+
+            <li>
+                <a>{{ data.number }}/{{ data.paginator.num_pages }}</a>
+            </li>
+
+            {% if data.has_next %}
+            <li>
+                <a href="{% url 'search_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
+            </li>
+            <li>
+                <a href="{% url 'search_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
+            </li>
+            {% else %}
+            <li>
+                <a>次へ &raquo;</a>
+            </li>
+            <li>
+                <a>最後へ &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+
+{% endblock %}

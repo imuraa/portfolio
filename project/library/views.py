@@ -1,17 +1,62 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-import requests
+from django.http import HttpResponse
+from .forms import SearchForm
+from .models import Book
+from django.db.models import Q
+from django.core.paginator import Paginator
 
-@login_required(login_url='/admin/login/')
+
+@login_required(login_url='login')
 def index(request):
-    result  = requests.get("https://www.googleapis.com/books/v1/volumes?q=isbn:9784773061437")
-    data    = result.json()
     params = {
         'login_user':request.user,
-        'title':data["items"][0]["volumeInfo"]["title"],
-        'pub_date':data["items"][0]["volumeInfo"]["publishedDate"],
-        'author':data["items"][0]["volumeInfo"]["authors"],
-        'description':data["items"][0]["volumeInfo"]["description"],
-        'thumbnail':data["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"],
     }
     return render(request, 'library/index.html', params)
+
+#書籍検索画面
+@login_required(login_url='login')
+def search_book(request, num=1):
+    
+    if (request.method == "POST"):
+        form = SearchForm(request.POST)
+        search = request.POST["search"]
+        data = Book.objects.filter(
+            Q(title__icontains=search) |
+            Q(author__icontains=search) |
+            Q(publisher__icontains=search) |
+            Q(isbn__iexact=search)
+        )
+        page = Paginator(data, 10)
+        msg = '検索結果:' + str(data.count()) + '件'
+
+    else:
+        form = SearchForm()
+        data = Book.objects.all()
+        page = Paginator(data, 10)
+        msg = ""
+
+    params = {
+        'login_user':request.user,
+        'form':form,
+        'data':page.get_page(num),
+        'msg':msg,
+    }
+    return render(request, 'library/search_book.html', params)
+
+
+
+@login_required(login_url='login')
+def return_book(request):
+    params = {
+        'login_user':request.user,
+    }
+    return HttpResponse('ここは書籍返却画面です')
+
+@login_required(login_url='login')
+def history(request):
+    params = {
+        'login_user':request.user,
+    }
+    return HttpResponse('ここは貸出返却履歴画面です')
+
