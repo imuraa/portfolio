@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Location, Category
+from .models import Book, Location, Category, Rental
 from .forms import BookAdminForm, LocationAdminForm
 import requests
 from django.utils.safestring import mark_safe
@@ -50,9 +50,13 @@ class BookAdmin(admin.ModelAdmin):
     
     def change_view(self, request, object_id, form_url="", extra_context=None):
         return self.changeform_view(request, object_id, form_url, extra_context)
+    
+class RentalAdmin(admin.ModelAdmin):
+    list_display = ["id", "book_id", "user_id", "start", "end", "return_date"]
 
 
 
 admin.site.register(Book, BookAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Category)
+admin.site.register(Rental, RentalAdmin)

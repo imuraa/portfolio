@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 def validate_blank_category(value):
     if value == 17:
@@ -48,3 +49,14 @@ class Book(models.Model):
 
     def __str__(self):
         return '<Book:id=' + str(self.id) + ',' + self.title + '>'
+    
+
+class Rental(models.Model):
+    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    user_id = models.ForeignKey(User, on_delete=models.PROTECT)
+    start = models.DateField()
+    end = models.DateField()
+    return_date = models.DateField(default=None, null=True, blank=True)
+
+    def __str__(self):
+        return '<Rental:id=' + str(self.id) + '>'

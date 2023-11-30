@@ -13,7 +13,6 @@
             <input type="submit" value="検索">
         </form>
 
-
         <!--検索結果の表示-->
 
         {{ msg }}
@@ -38,7 +37,7 @@
             {% else %}
             <th><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></th>
             {% endif %}
-            <th>{{ item.title }}</th>
+            <th><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></th>
             <th>{{ item.author }}</th>
             <th>{{ item.publisher }}</th>
             <th>{{ item.pub_date }}</th>
