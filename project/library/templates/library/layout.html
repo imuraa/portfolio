@@ -4,28 +4,38 @@
     <head>
         <meta charset="utf-8">
         <title>{% block title %}{% endblock %}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+        <!--bootstrapCSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     </head>
     <body>
-        <h1>分散型図書管理アプリ</h1>
-        <p>ログイン中：{{ login_user }}</p>
-        <a href="{% url 'logout' %}">ログアウト</a>
-
-        <nav>
-            <ul>
-                <li>
-                    <a href="{% url 'index' %}">マイページ</a>
-                </li>
-                <li>
-                    <a href="{% url 'search_book' %}">本を探す</a>
-                </li>
-                <li>
-                    <a href="{% url 'return_book' %}">本を返却する</a>
-                </li>
-                <li>
-                    <a href="{% url 'history' %}">貸出返却履歴</a>
-                </li>
-            </ul>
+        <!-- bootstrapJS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand">分散型図書管理アプリ</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'index' %}">マイページ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"  href="{% url 'search_book' %}">本を探す</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"  href="{% url 'return_book' %}">本を返却する</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"  href="{% url 'history' %}">貸出返却履歴</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <span class="navbar-text justify-content-end">ログイン中：{{ login_user }}</span>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'logout' %}">ログアウト</a>
+                    </li>
+            </div>
         </nav>
 
         <div>
