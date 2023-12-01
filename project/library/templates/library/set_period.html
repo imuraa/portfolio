@@ -1,0 +1,15 @@
+{% extends 'library/layout.html' %}
+
+{% block content %}
+
+<form action="{% url 'set_period' book.id %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    <tr><th><td>
+    <input type="submit" value="click">
+    </td></th></tr>
+    </table>
+</form>
+
+{% endblock %}

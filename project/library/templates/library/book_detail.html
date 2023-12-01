@@ -19,7 +19,7 @@
 <div>{{ book.category }}</div>
 <div>{{ status }}</div>
 
-<button>本を借りる/予約する</button>  
+<a href="{% url 'set_period' book.id %}">本を借りる/予約する</a>  
 
 {% endblock %}
 

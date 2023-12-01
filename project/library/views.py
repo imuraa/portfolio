@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .forms import SearchForm
+from .forms import SearchForm, RentalForm
 from .models import Book, Rental
 from django.db.models import Q
 from django.core.paginator import Paginator
 import datetime
+from django.shortcuts import redirect
 
 
 @login_required(login_url='login')
@@ -48,6 +49,7 @@ def search_book(request, num=1):
 
 
 #書籍詳細情報画面
+@login_required(login_url='login')
 def book_detail(request, num):
     book = Book.objects.get(id=num)
     today = datetime.datetime.today().date()
@@ -62,6 +64,33 @@ def book_detail(request, num):
         'status':status,
     }
     return render(request, 'library/book_detail.html', params)
+
+#貸出期間設定画面
+@login_required(login_url='login')
+def set_period(request, num):
+    initial_dict = dict(book_id=num, user_id=request.user, start=None, end=None, return_date=None)
+    book = Book.objects.get(id=num)
+    if (request.method == 'POST'):
+        obj = Rental()
+        rental = RentalForm(request.POST, instance=obj)
+        if (rental.is_valid):
+            rental.save()
+            return redirect(to='index')
+        else:
+            params = {
+                'login_user':request.user,
+                'book':book,
+                'form':rental
+            }
+            return render(request, 'library/set_period.html', params)
+        
+    params = {
+        'login_user':request.user,
+        'book':book,
+        'form':RentalForm(initial=initial_dict)
+    }
+    return render(request, 'library/set_period.html', params)
+
 
 
 
