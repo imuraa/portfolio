@@ -65,31 +65,28 @@ def book_detail(request, num):
     }
     return render(request, 'library/book_detail.html', params)
 
+
 #貸出期間設定画面
 @login_required(login_url='login')
 def set_period(request, num):
-    initial_dict = dict(book_id=num, user_id=request.user, start=None, end=None, return_date=None)
     book = Book.objects.get(id=num)
+    initial_dict = dict(book_id=num, user_id=request.user, start=None, end=None, return_date=None)
+    params = {
+            'login_user':request.user,
+            'book':book,
+            'form':RentalForm(initial=initial_dict),
+        }
     if (request.method == 'POST'):
         obj = Rental()
-        rental = RentalForm(request.POST, instance=obj)
-        if (rental.is_valid):
-            rental.save()
+        form = RentalForm(request.POST, instance=obj)
+        params['form'] = form
+        if (form.is_valid()):
+            form.save()
             return redirect(to='index')
         else:
-            params = {
-                'login_user':request.user,
-                'book':book,
-                'form':rental
-            }
             return render(request, 'library/set_period.html', params)
-        
-    params = {
-        'login_user':request.user,
-        'book':book,
-        'form':RentalForm(initial=initial_dict)
-    }
-    return render(request, 'library/set_period.html', params)
+    else:
+        return render(request, 'library/set_period.html', params)
 
 
 

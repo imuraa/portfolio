@@ -1,5 +1,6 @@
 from django import forms
 from .models import Book, Location, Rental
+from bootstrap_datepicker.widgets import DatePicker
 
 #管理画面-保管場所登録フォーム
 class LocationAdminForm(forms.ModelForm):
@@ -28,8 +29,26 @@ class RentalForm(forms.ModelForm):
         widgets = {
                    'book_id': forms.HiddenInput(),
                    'user_id': forms.HiddenInput(),
+                   'start':DatePicker(),
+                   #'start':forms.DateInput(format='%Y-%m-%d', attrs={'class':'datepicker', 'type':'date'}),
+                   'end':forms.DateInput(format='%Y-%m-%d', attrs={'class':'datepicker', 'type':'date'}),
                    'return_date': forms.HiddenInput(),
                   }
+        #input_formats = ['%Y-%m-%d']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start = cleaned_data.get("start")
+        end = cleaned_data.get("end")
+        if start:
+            if start > end:
+                raise forms.ValidationError("終了日は開始日より後の日付を設定してください")
+            else:
+                period = end - start
+                period = period.days + 1
+                if period > 14:
+                    raise forms.ValidationError("最大貸出期間（2週間）を超えています")
+        return cleaned_data
 
 
 

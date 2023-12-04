@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+import datetime
 
 def validate_blank_category(value):
     if value == 17:
@@ -51,11 +52,16 @@ class Book(models.Model):
         return '<Book:id=' + str(self.id) + ',' + self.title + '>'
     
 
+def validate_past_date(value):
+    today = datetime.datetime.today().date()
+    if value < today:
+        raise ValidationError("過去の日付は入力できません", params={'value': value},)
+
 class Rental(models.Model):
     book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
     user_id = models.ForeignKey(User, on_delete=models.PROTECT)
-    start = models.DateField()
-    end = models.DateField()
+    start = models.DateField(validators=[validate_past_date])
+    end = models.DateField(validators=[validate_past_date])
     return_date = models.DateField(default=None, null=True, blank=True)
 
     def __str__(self):
