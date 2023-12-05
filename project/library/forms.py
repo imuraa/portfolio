@@ -1,6 +1,6 @@
 from django import forms
 from .models import Book, Location, Rental
-from bootstrap_datepicker.widgets import DatePicker
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 #管理画面-保管場所登録フォーム
 class LocationAdminForm(forms.ModelForm):
@@ -29,12 +29,23 @@ class RentalForm(forms.ModelForm):
         widgets = {
                    'book_id': forms.HiddenInput(),
                    'user_id': forms.HiddenInput(),
-                   'start':DatePicker(),
-                   #'start':forms.DateInput(format='%Y-%m-%d', attrs={'class':'datepicker', 'type':'date'}),
-                   'end':forms.DateInput(format='%Y-%m-%d', attrs={'class':'datepicker', 'type':'date'}),
+                   'start': DatePickerInput(
+                        options={
+                            'format':'YYYY-MM-DD',
+                            'locale': 'ja',
+                            'dayViewHeaderFormat': 'YYYY年 MMMM',
+                        }
+                    ),
+                    'end': DatePickerInput(
+                        options={
+                            'format':'YYYY-MM-DD',
+                            'locale': 'ja',
+                            'dayViewHeaderFormat': 'YYYY年 MMMM',
+                        }
+                    ),
                    'return_date': forms.HiddenInput(),
                   }
-        #input_formats = ['%Y-%m-%d']
+            
 
     def clean(self):
         cleaned_data = super().clean()

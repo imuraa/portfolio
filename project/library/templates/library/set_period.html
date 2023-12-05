@@ -5,6 +5,7 @@
 <form action="{% url 'set_period' book.id %}" method="post">
     {% csrf_token %}
     <table>
+        {{ form.media }}
         {{ form }}
     <tr><th><td>
     <input type="submit" value="click">
