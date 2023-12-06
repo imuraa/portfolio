@@ -34,6 +34,7 @@ class RentalForm(forms.ModelForm):
                             'format':'YYYY-MM-DD',
                             'locale': 'ja',
                             'dayViewHeaderFormat': 'YYYY年 MMMM',
+                            'datesDisabled': ['2023-12-25', '2023-12-26', '2023-12-27', '2023-12-28', '2023-12-29', '2023-12-30', '2023-12-31'],
                         }
                     ),
                     'end': DatePickerInput(
