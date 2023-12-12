@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>ログアウト｜分散型図書管理アプリ</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <p>ログアウトしました</p>
-    <a href="{% url 'login' %}">ログイン画面へ戻る</a>
+    <div class="d-flex align-items-center justify-content-center" style="height: 60vh;">
+        <div class="mx-auto">
+            <p class="text-center"  style="font-size: 30px; margin-bottom: 5%;">分散型図書管理アプリ</p>
+            <p class="text-center" style="font-size: 18px;">ログアウトしました</p>
+            <p class="text-center" style="font-size: 18px;">
+                <a href="{% url 'login' %}" class="text-center">ログイン画面へ戻る</a>
+            </p>
+        </div>
+    </div>
 </body>
 </html>
