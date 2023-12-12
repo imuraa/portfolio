@@ -13,4 +13,21 @@
     </table>
 </form>
 
+<script>
+    // Function to initialize Datepicker for a given field
+    function initializeDatepicker(fieldId) {
+        $('#' + fieldId).datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: 'ja'
+        });
+    }
+
+    // Datepicker initialization for the model form fields
+    $(document).ready(function(){
+        initializeDatepicker('{{ form.start.id_for_label }}');
+        initializeDatepicker('{{ form.end.id_for_label }}');
+    });
+</script>
+
 {% endblock %}

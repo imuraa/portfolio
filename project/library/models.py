@@ -60,8 +60,8 @@ def validate_past_date(value):
 class Rental(models.Model):
     book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
     user_id = models.ForeignKey(User, on_delete=models.PROTECT)
-    start = models.DateField(validators=[validate_past_date])
-    end = models.DateField(validators=[validate_past_date])
+    start = models.DateField(validators=[validate_past_date], verbose_name="貸出開始日")
+    end = models.DateField(validators=[validate_past_date], verbose_name="貸出終了日")
     return_date = models.DateField(default=None, null=True, blank=True)
 
     def __str__(self):
