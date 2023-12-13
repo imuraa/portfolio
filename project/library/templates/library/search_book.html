@@ -17,35 +17,39 @@
 
         {{ msg }}
 
-        <table>
-        <tr>
-            <th>ID</th>
-            <th> </th>
-            <th>タイトル</th>
-            <th>著者</th>
-            <th>出版社</th>
-            <th>出版日</th>
-            <th>版数</th>
-            <th>ISBNコード</th>
-            <th>カテゴリ</th>
-        </tr>
-        {% for item in data %}
-        <tr>
-            <th>{{ item.id }}</th>
-            {% if item.image_url %}
-            <th><img src="{{ item.image_url }}" style="width:50px; height:70px;"></th>
-            {% else %}
-            <th><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></th>
-            {% endif %}
-            <th><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></th>
-            <th>{{ item.author }}</th>
-            <th>{{ item.publisher }}</th>
-            <th>{{ item.pub_date }}</th>
-            <th>第{{ item.version }}版</th>
-            <th>{{ item.isbn }}</th>
-            <th>{{ item.category }}</th>
-        </tr>
-        {% endfor %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col"> </th>
+                    <th scope="col">タイトル</th>
+                    <th scope="col">著者</th>
+                    <th scope="col">出版社</th>
+                    <th scope="col">出版日</th>
+                    <th scope="col">版数</th>
+                    <th scope="col">ISBNコード</th>
+                    <th scope="col">カテゴリ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <th  scope="row">{{ item.id }}</th>
+                    {% if item.image_url %}
+                    <th><img src="{{ item.image_url }}" style="width:50px; height:70px;"></th>
+                    {% else %}
+                    <th><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></th>
+                    {% endif %}
+                    <th><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></th>
+                    <th>{{ item.author }}</th>
+                    <th>{{ item.publisher }}</th>
+                    <th>{{ item.pub_date }}</th>
+                    <th>第{{ item.version }}版</th>
+                    <th>{{ item.isbn }}</th>
+                    <th>{{ item.category }}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
 
         <!--ページネーション-->

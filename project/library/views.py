@@ -7,6 +7,8 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 import datetime
 from django.shortcuts import redirect
+from datetime import timedelta
+import json
 
 
 @login_required(login_url='login')
@@ -71,10 +73,22 @@ def book_detail(request, num):
 def set_period(request, num):
     book = Book.objects.get(id=num)
     initial_dict = dict(book_id=num, user_id=request.user, start=None, end=None, return_date=None)
+    rentals = Rental.objects.filter(book_id=num)
+    reserved_dates = []
+    js_reserved_dates = []
+    for rental in rentals:
+        start = rental.start
+        end = rental.end
+        days_num = (end - start).days + 1
+        for i in range(days_num):
+            reserved_dates.append(start + timedelta(days=i))
+        for day in reserved_dates:
+            js_reserved_dates.append(day.isoformat())
     params = {
             'login_user':request.user,
             'book':book,
             'form':RentalForm(initial=initial_dict),
+            'js_reserved_dates':json.dumps(js_reserved_dates),
         }
     if (request.method == 'POST'):
         obj = Rental()

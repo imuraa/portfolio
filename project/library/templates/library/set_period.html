@@ -13,4 +13,28 @@
     </table>
 </form>
 
+<script>
+    // Function to initialize Datepicker for a given field
+    function initializeDatepicker(fieldId, disabledDates) {
+        $('#' + fieldId).datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: 'ja',
+            beforeShowDay: function(date){
+                var formattedDate = date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                return disabledDates.indexOf(formattedDate) === -1;
+            }
+        });
+    }
+
+    // Datepicker initialization for the model form fields
+    $(document).ready(function(){
+        var disabledDates = "{{ js_reserved_dates | safe }}";
+        initializeDatepicker('{{ form.start.id_for_label }}', disabledDates);
+        initializeDatepicker('{{ form.end.id_for_label }}', disabledDates);
+    });
+</script>
+
+{{ js_reserved_dates }}
+
 {% endblock %}
