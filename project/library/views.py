@@ -11,6 +11,7 @@ from datetime import timedelta
 import json
 
 
+
 @login_required(login_url='login')
 def index(request):
     params = {
@@ -83,7 +84,7 @@ def set_period(request, num):
         for i in range(days_num):
             reserved_dates.append(start + timedelta(days=i))
         for day in reserved_dates:
-            js_reserved_dates.append(day.isoformat())
+            js_reserved_dates.append(day.strftime('%Y/%m/%d'))
     params = {
             'login_user':request.user,
             'book':book,

@@ -21,20 +21,23 @@
             autoclose: true,
             language: 'ja',
             beforeShowDay: function(date){
-                var formattedDate = date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                return disabledDates.indexOf(formattedDate) === -1;
+                var formattedDate =  date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                if (disabledDates.indexOf(formattedDate) === -1) {
+                    return {enabled:true, classes:''};
+                } else {
+                    return {enabled:false, classes:'disabled'};
+                }
             }
         });
-    }
+    };
 
     // Datepicker initialization for the model form fields
     $(document).ready(function(){
-        var disabledDates = "{{ js_reserved_dates | safe }}";
+        var disabledDates = {{ js_reserved_dates|safe }};
         initializeDatepicker('{{ form.start.id_for_label }}', disabledDates);
         initializeDatepicker('{{ form.end.id_for_label }}', disabledDates);
     });
-</script>
 
-{{ js_reserved_dates }}
+</script>
 
 {% endblock %}
