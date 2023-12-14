@@ -13,6 +13,15 @@
     </table>
 </form>
 
+<style>
+    .custom-enabled {
+        background-color: #DDFFDD;
+    }
+    .custom-disabled {
+        background-color: #FFDDDD !important;
+    }
+</style>
+
 <script>
     // Function to initialize Datepicker for a given field
     function initializeDatepicker(fieldId, disabledDates) {
@@ -20,12 +29,13 @@
             format: 'yyyy-mm-dd',
             autoclose: true,
             language: 'ja',
+            startDate: new Date(),
             beforeShowDay: function(date){
                 var formattedDate =  date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
                 if (disabledDates.indexOf(formattedDate) === -1) {
-                    return {enabled:true, classes:''};
+                    return {enabled:true, classes:'custom-enabled', tooltip:'空'};
                 } else {
-                    return {enabled:false, classes:'disabled'};
+                    return {enabled:false, classes:'custom-disabled', tooltip:'予約済'};
                 }
             }
         });

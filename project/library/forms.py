@@ -29,8 +29,8 @@ class RentalForm(forms.ModelForm):
         widgets = {
                    'book_id': forms.HiddenInput(),
                    'user_id': forms.HiddenInput(),
-                   'start': forms.DateInput(attrs={'class': 'datepicker'}),
-                   'end': forms.DateInput(attrs={'class': 'datepicker'}),
+                   'start': forms.DateInput(attrs={'class': 'datepicker', 'readonly':'readonly'}),
+                   'end': forms.DateInput(attrs={'class': 'datepicker', 'readonly':'readonly'}),
                    'return_date': forms.HiddenInput(),
                   }
             
@@ -39,7 +39,8 @@ class RentalForm(forms.ModelForm):
         cleaned_data = super().clean()
         start = cleaned_data.get("start")
         end = cleaned_data.get("end")
-        if start:
+        book_id = cleaned_data.get("book_id")
+        if start and end:
             if start > end:
                 raise forms.ValidationError("終了日は開始日より後の日付を設定してください")
             else:
@@ -47,6 +48,10 @@ class RentalForm(forms.ModelForm):
                 period = period.days + 1
                 if period > 14:
                     raise forms.ValidationError("最大貸出期間（2週間）を超えています")
+                rentals = Rental.objects.filter(book_id=book_id)
+                for rental in rentals:
+                    if (start >= rental.start and start <= rental.end) or (end >= rental.start and end <= rental.end):
+                        raise forms.ValidationError("設定した貸出期間に予約済みの日付が含まれています")
         return cleaned_data
 
 
