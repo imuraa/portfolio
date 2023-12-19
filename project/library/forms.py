@@ -50,7 +50,7 @@ class RentalForm(forms.ModelForm):
                     raise forms.ValidationError("最大貸出期間（2週間）を超えています")
                 rentals = Rental.objects.filter(book_id=book_id)
                 for rental in rentals:
-                    if (start >= rental.start and start <= rental.end) or (end >= rental.start and end <= rental.end):
+                    if (start >= rental.start and start <= rental.end) or (end >= rental.start and end <= rental.end) or (start < rental.start and end > rental.end):
                         raise forms.ValidationError("設定した貸出期間に予約済みの日付が含まれています")
         return cleaned_data
 

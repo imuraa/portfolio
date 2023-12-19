@@ -96,19 +96,21 @@ def set_period(request, num):
         form = RentalForm(request.POST, instance=obj)
         params['form'] = form
         if (form.is_valid()):
-            #form.save()
-            #return redirect(to='index')
+            #バリデーションOKの時
+            request.session['params'] = request.POST
             return render(request, 'library/confirm_reservation.html', params)
         else:
+            #バリデーションNGの時
             return render(request, 'library/set_period.html', params)
     else:
+        #画面遷移（GET）した時
         return render(request, 'library/set_period.html', params)
     
+
+
 @login_required(login_url='login')
 def confirm_reservation(request, num):
-    return HttpResponse("ここは予約確認画面です")
-
-
+    return HttpResponse("確定")
 
 
 

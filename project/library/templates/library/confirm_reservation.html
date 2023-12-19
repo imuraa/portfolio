@@ -1,11 +1,26 @@
 {% extends 'library/layout.html' %}
 
 {% block content %}
-予約内容
-book_id:{{ form.book_id}}
-user_id:{{ form.user_id}}
-start:{{ form.start}}
-end:{{ form.end}}
-
+<div class="d-flex align-items-center justify-content-center" style="height: 60vh;">
+    <div class="form-group mx-auto">
+        <h1 class="text-center">貸出予約確認</h1>
+        <p class="text-center">以下の内容で間違いなければ、「上記の内容で確定する」ボタンを押してください。</p>
+        <table class="mx-auto">
+            <tr>
+                <td>書籍名</td>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <td>貸出期間</td>
+                <td>{{ form.start.value }}～{{ form.end.value }}</td>
+            </tr>
+        </table>
+        <form class="mx-auto" action="{% url 'confirm_reservation' book.id %}" method="POST">
+        {% csrf_token %}
+        <button class="mx-auto" type="submit" name="back">前の画面に戻る</button>
+        <button class="mx-auto" type="submit" name="confirm">上記の内容で確定する</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
