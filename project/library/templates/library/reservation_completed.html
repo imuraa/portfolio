@@ -3,7 +3,25 @@
 {% block header %}
 {% endblock %}
 
-予約完了
 
 {% block content %}
+
+<table>
+    <tr>
+        <td>書籍名</td>
+        <td>{{ book.title }}</td>
+    </tr>
+    <tr>
+        <td>貸出期間</td>
+        <td>{{ form.start.value }}～{{ form.end.value }}</td>
+    </tr>
+    <tr>
+        <td>格納場所</td>
+        <td>{{ book.location }}</td>
+    </tr>
+</table>
+
+<p>本の貸出予約手続きが完了しました。</p>
+<p>貸出期間になりましたら、指定の場所に受け取りに行って下さい。</p>
+
 {% endblock %}

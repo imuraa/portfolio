@@ -77,6 +77,7 @@ def set_period(request, num):
     rentals = Rental.objects.filter(book_id=num)
     reserved_dates = []
     js_reserved_dates = []
+    #予約済みの日付を抽出
     for rental in rentals:
         start = rental.start
         end = rental.end
@@ -97,21 +98,49 @@ def set_period(request, num):
         params['form'] = form
         if (form.is_valid()):
             #バリデーションOKの時
-            request.session['params'] = request.POST
-            return render(request, 'library/confirm_reservation.html', params)
+            request.session['form_data'] = request.POST
+            return redirect('confirm_reservation', num=num)
+            #return render(request, 'library/confirm_reservation.html', params)
         else:
             #バリデーションNGの時
             return render(request, 'library/set_period.html', params)
     else:
         #画面遷移（GET）した時
+        form = RentalForm(request.session.get('form_data'))
         return render(request, 'library/set_period.html', params)
     
 
 
 @login_required(login_url='login')
 def confirm_reservation(request, num):
-    return HttpResponse("確定")
+    book = Book.objects.get(id=num)
+    session_form_data = request.session.get('form_data')
+    if session_form_data is None:
+        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
+        return redirect('set_period', num=num)
+    params = {
+        'form': RentalForm(session_form_data),
+        'book': book,
+    }
+    return render(request, 'library/confirm_reservation.html', params)
 
+
+@login_required(login_url='login')
+def reservation_completed(request, num):
+    book = Book.objects.get(id=num)
+    session_form_data = request.session.pop('form_data', None)
+    if session_form_data is None:
+        return redirect('set_period', num=num)
+    form = RentalForm(session_form_data)
+    if form.is_valid():
+        form.save()
+        params = {
+            'user_id':request.user,
+            'book':book,
+            'form':form,
+        }
+        return render(request, 'library/reservation_completed.html', params)
+    
 
 
 @login_required(login_url='login')

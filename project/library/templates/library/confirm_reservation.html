@@ -15,11 +15,14 @@
                 <td>{{ form.start.value }}～{{ form.end.value }}</td>
             </tr>
         </table>
-        <form class="mx-auto" action="{% url 'confirm_reservation' book.id %}" method="POST">
-        {% csrf_token %}
-        <button class="mx-auto" type="submit" name="back">前の画面に戻る</button>
-        <button class="mx-auto" type="submit" name="confirm">上記の内容で確定する</button>
-        </form>
+
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'set_period' book.id %}" class="btn btn-secondary mr-auto">前の画面に戻る</a>
+            <form action="{% url 'reservation_completed' book.id %}" method="POST" class="ml-auto">
+                <button type="submit" class="btn btn-primary text-right">上記の内容で確定する</button>
+                {% csrf_token %}
+            </form>
+        </div>
     </div>
 </div>
 

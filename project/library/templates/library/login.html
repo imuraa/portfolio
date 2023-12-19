@@ -8,7 +8,7 @@
     <body>
         
         <div class="d-flex align-items-center justify-content-center" style="height: 60vh;">
-            <form method="post">
+            <form method="post" action="{% url 'login' %}" class="form-group">
                 {% csrf_token %}
                 <p class="text-center"  style="font-size: 30px; margin-bottom: 5%;">分散型図書管理アプリ</p>
                 
@@ -23,6 +23,11 @@
                             placeholder="{{item.label}}">
                     </div>
                 {% endfor %}
+
+                {% if form.errors %}
+                <p class="text-danger small text-center">ユーザ名またはパスワードに誤りがあります</p>
+                {% endif %}
+
                 <button type="submit" class="btn btn-secondary" style="width: 100%;">ログイン</button>
             </form>
         </div>

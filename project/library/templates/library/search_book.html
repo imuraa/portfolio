@@ -7,11 +7,13 @@
 {% block content %}
 
         <!--書籍検索フォーム-->
-        <form action="{% url 'search_book' %}" method="post">
+        <div class="d-flex align-items-center justify-content-center mt-4 mb-4 form-inline">
+        <form action="{% url 'search_book' %}" method="post" class="d-flex flex-row">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="検索">
+            <input type="submit" class="btn btn-secondary ml-2" value="検索">
         </form>
+        </div>
 
         <!--検索結果の表示-->
 
@@ -20,73 +22,73 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col"> </th>
-                    <th scope="col">タイトル</th>
-                    <th scope="col">著者</th>
-                    <th scope="col">出版社</th>
-                    <th scope="col">出版日</th>
-                    <th scope="col">版数</th>
-                    <th scope="col">ISBNコード</th>
-                    <th scope="col">カテゴリ</th>
+                    <th style="width: 5%">ID</th>
+                    <th style="width: 5%"> </th>
+                    <th style="width: 15%">タイトル</th>
+                    <th style="width: 10%">著者</th>
+                    <th style="width: 10%">出版社</th>
+                    <th style="width: 15%">出版日</th>
+                    <th style="width: 10%">版数</th>
+                    <th style="width: 10%">ISBNコード</th>
+                    <th style="width: 20%">カテゴリ</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in data %}
                 <tr>
-                    <th  scope="row">{{ item.id }}</th>
+                    <td scope="row">{{ item.id }}</td>
                     {% if item.image_url %}
-                    <th><img src="{{ item.image_url }}" style="width:50px; height:70px;"></th>
+                    <td scope="row"><img src="{{ item.image_url }}" style="width:50px; height:70px;"></td>
                     {% else %}
-                    <th><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></th>
+                    <td scope="row"><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></td>
                     {% endif %}
-                    <th><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></th>
-                    <th>{{ item.author }}</th>
-                    <th>{{ item.publisher }}</th>
-                    <th>{{ item.pub_date }}</th>
-                    <th>第{{ item.version }}版</th>
-                    <th>{{ item.isbn }}</th>
-                    <th>{{ item.category }}</th>
+                    <td scope="row"><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></td>
+                    <td scope="row">{{ item.author }}</td>
+                    <td scope="row">{{ item.publisher }}</td>
+                    <td scope="row">{{ item.pub_date }}</td>
+                    <td scope="row">第{{ item.version }}版</td>
+                    <td scope="row">{{ item.isbn }}</td>
+                    <td scope="row">{{ item.category }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <!--ページネーション-->
-        <ul>
+        <ul class="pagination justify-content-center">
             {% if data.has_previous %}
-            <li >
-                <a href="{% url 'search_book' %}">&laquo; 最初へ</a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}">&laquo; 最初へ</a>
             </li>
-            <li>
-                <a href="{% url 'search_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
             </li>
             {% else %}
-            <li>
-                <a>&laquo; 最初へ</a>
+            <li class="page-item">
+                <a class="page-link">&laquo; 最初へ</a>
             </li>
-            <li>
-                <a>&laquo; 前へ</a>
+            <li class="page-item">
+                <a class="page-link">&laquo; 前へ</a>
             </li>
             {% endif %}
 
-            <li>
-                <a>{{ data.number }}/{{ data.paginator.num_pages }}</a>
+            <li class="page-item">
+                <a class="page-link">{{ data.number }}/{{ data.paginator.num_pages }}</a>
             </li>
 
             {% if data.has_next %}
-            <li>
-                <a href="{% url 'search_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
             </li>
-            <li>
-                <a href="{% url 'search_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
             </li>
             {% else %}
-            <li>
-                <a>次へ &raquo;</a>
+            <li class="page-item">
+                <a class="page-link">次へ &raquo;</a>
             </li>
-            <li>
-                <a>最後へ &raquo;</a>
+            <li class="page-item">
+                <a class="page-link">最後へ &raquo;</a>
             </li>
             {% endif %}
         </ul>
