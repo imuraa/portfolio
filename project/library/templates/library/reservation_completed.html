@@ -5,23 +5,29 @@
 
 
 {% block content %}
+<div class="d-flex align-items-center justify-content-center" style="height: 70vh;">
+    <div class="form-group mx-auto">
+        <h3 class="text-center">貸出予約完了</h3>
+        <table class="table mx-auto mt-3">
+            <tr>
+                <td>書籍名</td>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <td>貸出期間</td>
+                <td>{{ form.start.value }}～{{ form.end.value }}</td>
+            </tr>
+            <tr>
+                <td>格納場所</td>
+                <td>{{ book.location }}</td>
+            </tr>
+        </table>
 
-<table>
-    <tr>
-        <td>書籍名</td>
-        <td>{{ book.title }}</td>
-    </tr>
-    <tr>
-        <td>貸出期間</td>
-        <td>{{ form.start.value }}～{{ form.end.value }}</td>
-    </tr>
-    <tr>
-        <td>格納場所</td>
-        <td>{{ book.location }}</td>
-    </tr>
-</table>
-
-<p>本の貸出予約手続きが完了しました。</p>
-<p>貸出期間になりましたら、指定の場所に受け取りに行って下さい。</p>
+        <p class="text-center">本の貸出予約手続きが完了しました。<br>貸出期間になりましたら、指定の場所に受け取りに行って下さい。</p>
+        <div class="d-flex justify-content-center mt-3">
+        <a href="{% url 'index' %}" class="btn btn-secondary text-center">マイページに戻る</a>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

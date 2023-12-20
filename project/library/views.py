@@ -11,13 +11,14 @@ from datetime import timedelta
 import json
 
 
-
+#マイページ
 @login_required(login_url='login')
 def index(request):
     params = {
         'login_user':request.user,
     }
     return render(request, 'library/index.html', params)
+
 
 #書籍検索画面
 @login_required(login_url='login')
@@ -48,7 +49,6 @@ def search_book(request, num=1):
         'msg':msg,
     }
     return render(request, 'library/search_book.html', params)
-
 
 
 #書籍詳細情報画面
@@ -110,13 +110,13 @@ def set_period(request, num):
         return render(request, 'library/set_period.html', params)
     
 
-
+#貸出予約確認画面
 @login_required(login_url='login')
 def confirm_reservation(request, num):
     book = Book.objects.get(id=num)
     session_form_data = request.session.get('form_data')
     if session_form_data is None:
-        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
+        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト
         return redirect('set_period', num=num)
     params = {
         'form': RentalForm(session_form_data),
@@ -125,6 +125,7 @@ def confirm_reservation(request, num):
     return render(request, 'library/confirm_reservation.html', params)
 
 
+#貸出予約完了画面
 @login_required(login_url='login')
 def reservation_completed(request, num):
     book = Book.objects.get(id=num)
@@ -143,6 +144,7 @@ def reservation_completed(request, num):
     
 
 
+#書籍返却画面
 @login_required(login_url='login')
 def return_book(request):
     params = {
@@ -150,6 +152,8 @@ def return_book(request):
     }
     return HttpResponse('ここは書籍返却画面です')
 
+
+#貸出返却履歴画面
 @login_required(login_url='login')
 def history(request):
     params = {

@@ -5,21 +5,41 @@
 
 {% block content %}
 
-<div>{{ book.title }}</div>
-<div>{{ book.author }}</div>
-<div>{{ book.publisher }}</div>
-<div>{{ book.pub_date }}</div>
-{% if book.image_url %}
-<div><img src="{{ book.image_url }}" style="width:200px; height:auto;"></div>
-{% else %}
-<div><img src="{% static 'library/images/no_image.jpg' %}" style="width:200px; height:auto;"></div>
-{% endif %}
-<div>{{ book.version }}</div>
-<div>{{ book.isbn }}</div>
-<div>{{ book.category }}</div>
-<div>{{ status }}</div>
+<h3 class="text-center mt-4">書籍詳細情報</h3>
+<div class="container d-flex justify-content-center mt-4">
 
-<a href="{% url 'set_period' book.id %}">本を借りる/予約する</a>  
+    <div class="row">
+    <div class="col">
+
+    {% if book.image_url %}
+    <div><img src="{{ book.image_url }}" style="width:300px; height:400px;"></div>
+    {% else %}
+    <div><img src="{% static 'library/images/no_image.jpg' %}" style="width:200px; height:auto;"></div>
+    {% endif %}
+    
+    </div>
+
+    <div class="col">
+
+    <table class="table">
+        <tr><th>書籍名</th><td>{{ book.title }}</td></tr>
+        <tr><th>著者</th><td>{{ book.author }}</td></tr>
+        <tr><th>出版社</th><td>{{ book.publisher }}</td></tr>
+        <tr><th>出版日</th><td>{{ book.pub_date }}</td></tr>
+        <tr><th>版数</th><td>第{{ book.version }}版</td></tr>
+        <tr><th>ISBN</th><td>{{ book.isbn }}</td></tr>
+        <tr><th>カテゴリ</th><td>{{ book.category }}</td></tr>
+    </table>
+
+
+
+    <div>{{ status }}</div>
+
+    <a href="{% url 'set_period' book.id %}">本を借りる/予約する</a>  
+
+</div>
+</div>
+</div>
 
 {% endblock %}
 

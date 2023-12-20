@@ -3,9 +3,9 @@
 {% block content %}
 <div class="d-flex align-items-center justify-content-center" style="height: 60vh;">
     <div class="form-group mx-auto">
-        <h1 class="text-center">貸出予約確認</h1>
+        <h3 class="text-center">貸出予約確認</h3>
         <p class="text-center">以下の内容で間違いなければ、「上記の内容で確定する」ボタンを押してください。</p>
-        <table class="mx-auto">
+        <table class="table mx-auto">
             <tr>
                 <td>書籍名</td>
                 <td>{{ book.title }}</td>
@@ -16,10 +16,10 @@
             </tr>
         </table>
 
-        <div class="d-flex justify-content-between">
-            <a href="{% url 'set_period' book.id %}" class="btn btn-secondary mr-auto">前の画面に戻る</a>
-            <form action="{% url 'reservation_completed' book.id %}" method="POST" class="ml-auto">
-                <button type="submit" class="btn btn-primary text-right">上記の内容で確定する</button>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'set_period' book.id %}" class="btn btn-secondary">前の画面に戻る</a>
+            <form action="{% url 'reservation_completed' book.id %}" method="POST">
+                <button type="submit" class="btn btn-primary">上記の内容で確定する</button>
                 {% csrf_token %}
             </form>
         </div>
