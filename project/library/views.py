@@ -146,12 +146,26 @@ def reservation_completed(request, num):
 
 #書籍返却画面
 @login_required(login_url='login')
-def return_book(request):
+def return_book(request, num=1):
+    data = Rental.objects.filter(user_id=request.user)
+    page = Paginator(data, 10)
+    msg = '全' + str(data.count()) + '件'
     params = {
         'login_user':request.user,
+        'data':page.get_page(num),
+        'msg':msg,
     }
-    return HttpResponse('ここは書籍返却画面です')
+    return render(request, 'library/return_book.html', params)
 
+
+#書籍返却確認画面
+def confirm_return(request, num):
+    rental = Rental.objects.get(id=num)
+    params = {
+        'login_user':request.user,
+        'rental':rental,
+    }
+    return render(request, "library/confirm_return.html", params)
 
 #貸出返却履歴画面
 @login_required(login_url='login')

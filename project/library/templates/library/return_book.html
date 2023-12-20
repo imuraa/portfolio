@@ -1,0 +1,85 @@
+{% extends 'library/layout.html' %}
+{% load static %}
+
+{% block title %}書籍返却｜分散型図書管理アプリ{% endblock %}
+
+{% block content %}
+
+<h3 class="text-center mt-3">書籍返却</h3>
+<p class="ml-5">返却する書籍を選択して下さい。</p>
+<p class="ml-5">{{ msg }}</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 5%">ID</th>
+            <th style="width: 5%"> </th>
+            <th style="width: 15%">タイトル</th>
+            <th style="width: 10%">著者</th>
+            <th style="width: 10%">出版社</th>
+            <th style="width: 15%">貸出開始日</th>
+            <th style="width: 10%">貸出終了日</th>
+            <th style="width: 10%">格納場所</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td scope="row">{{ item.book_id.id }}</td>
+            {% if item.book_id.image_url %}
+            <td scope="row"><img src="{{ item.book_id.image_url }}" style="width:50px; height:70px;"></td>
+            {% else %}
+            <td scope="row"><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></td>
+            {% endif %}
+            <td scope="row"><a href="{% url 'confirm_return' item.id %}">{{ item.book_id.title }}</a></td>
+            <td scope="row">{{ item.book_id.author }}</td>
+            <td scope="row">{{ item.book_id.publisher }}</td>
+            <td scope="row">{{ item.start }}</td>
+            <td scope="row">{{ item.end }}</td>
+            <td scope="row">{{ item.book_id.location }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!--ページネーション-->
+<ul class="pagination justify-content-center">
+    {% if data.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="{% url 'return_book' %}">&laquo; 最初へ</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="{% url 'return_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link">&laquo; 最初へ</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">&laquo; 前へ</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item">
+        <a class="page-link">{{ data.number }}/{{ data.paginator.num_pages }}</a>
+    </li>
+
+    {% if data.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="{% url 'return_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="{% url 'return_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link">次へ &raquo;</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">最後へ &raquo;</a>
+    </li>
+    {% endif %}
+</ul>
+
+{% endblock %}
