@@ -33,9 +33,17 @@
 
 
 
-    <div>{{ status }}</div>
+    <div class="card border-light text-center">
+        <div class="card-body" style="background-color: #ffffff;">
+            {% if status == "貸出可" %}
+            <p class="card-text h3 text-success">{{ status }}</p>
+            {% else %}
+            <p class="card-text h3 text-danger">{{ status }}</p>
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{% url 'set_period' book.id %}">本を借りる/予約する</a>  
+    <a href="{% url 'set_period' book.id %}" class="btn btn-primary ml-4" >本を借りる/予約する</a>  
 
 </div>
 </div>

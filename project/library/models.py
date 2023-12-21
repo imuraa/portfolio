@@ -62,7 +62,8 @@ class Rental(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.PROTECT)
     start = models.DateField(validators=[validate_past_date], verbose_name="貸出開始日")
     end = models.DateField(validators=[validate_past_date], verbose_name="貸出終了日")
-    return_date = models.DateField(default=None, null=True, blank=True)
+    return_date = models.DateField(default=None, null=True, blank=True, verbose_name="返却手続日")
+    cancel_date = models.DateField(default=None, null=True, blank=True, verbose_name="予約取消日")
 
     def __str__(self):
         return '<Rental:id=' + str(self.id) + '>'

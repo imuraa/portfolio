@@ -9,6 +9,8 @@ import datetime
 from django.shortcuts import redirect
 from datetime import timedelta
 import json
+import datetime
+from django.db.models import F
 
 
 #マイページ
@@ -74,7 +76,7 @@ def book_detail(request, num):
 def set_period(request, num):
     book = Book.objects.get(id=num)
     initial_dict = dict(book_id=num, user_id=request.user, start=None, end=None, return_date=None)
-    rentals = Rental.objects.filter(book_id=num)
+    rentals = Rental.objects.filter(book_id=num, cancel_date=None)
     reserved_dates = []
     js_reserved_dates = []
     #予約済みの日付を抽出
@@ -147,7 +149,7 @@ def reservation_completed(request, num):
 #書籍返却画面
 @login_required(login_url='login')
 def return_book(request, num=1):
-    data = Rental.objects.filter(user_id=request.user)
+    data = Rental.objects.filter(user_id=request.user, return_date=None)
     page = Paginator(data, 10)
     msg = '全' + str(data.count()) + '件'
     params = {
@@ -160,12 +162,32 @@ def return_book(request, num=1):
 
 #書籍返却確認画面
 def confirm_return(request, num):
-    rental = Rental.objects.get(id=num)
-    params = {
-        'login_user':request.user,
-        'rental':rental,
-    }
-    return render(request, "library/confirm_return.html", params)
+    today = datetime.datetime.today().date()
+    if (request.method == "GET"):
+        rental = Rental.objects.get(id=num)
+        params = {
+            'login_user':request.user,
+            'rental':rental,
+            'today':today,
+        }
+        return render(request, "library/confirm_return.html", params)
+    else:
+        rental = Rental.objects.get(id=num)
+        #予約取消の場合
+        if today < rental.start:
+            rental.cancel_date = today
+            rental.save()
+        #返却の場合
+        else: 
+            rental.return_date = today
+            rental.end = today
+            rental.save()
+        params = {
+            'login_user':request.user,
+            'rental':rental,
+            'today':today,
+        }
+        return render(request, "library/return_completed.html", params)
 
 #貸出返却履歴画面
 @login_required(login_url='login')

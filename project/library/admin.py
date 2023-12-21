@@ -52,7 +52,7 @@ class BookAdmin(admin.ModelAdmin):
         return self.changeform_view(request, object_id, form_url, extra_context)
     
 class RentalAdmin(admin.ModelAdmin):
-    list_display = ["id", "book_id", "user_id", "start", "end", "return_date"]
+    list_display = ["id", "book_id", "user_id", "start", "end", "return_date", "cancel_date"]
 
 
 

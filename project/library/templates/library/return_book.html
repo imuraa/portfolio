@@ -1,12 +1,12 @@
 {% extends 'library/layout.html' %}
 {% load static %}
 
-{% block title %}書籍返却｜分散型図書管理アプリ{% endblock %}
+{% block title %}書籍返却/予約取消｜分散型図書管理アプリ{% endblock %}
 
 {% block content %}
 
-<h3 class="text-center mt-3">書籍返却</h3>
-<p class="ml-5">返却する書籍を選択して下さい。</p>
+<h3 class="text-center mt-3">書籍返却/予約取消</h3>
+<p class="ml-5">返却または予約取消する書籍を選択して下さい。</p>
 <p class="ml-5">{{ msg }}</p>
 
 <table class="table">
@@ -25,7 +25,7 @@
     <tbody>
         {% for item in data %}
         <tr>
-            <td scope="row">{{ item.book_id.id }}</td>
+            <td scope="row">{{ item.id }}</td>
             {% if item.book_id.image_url %}
             <td scope="row"><img src="{{ item.book_id.image_url }}" style="width:50px; height:70px;"></td>
             {% else %}
