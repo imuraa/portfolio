@@ -1,0 +1,99 @@
+{% extends 'library/layout.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<h3 class="text-center mt-3">貸出返却履歴</h3>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th style="width: 3%">ID</th>
+                <th style="width: 5%"> </th>
+                <th style="width: 15%">タイトル</th>
+                <th style="width: 10%">著者</th>
+                <th style="width: 10%">出版社</th>
+                <th style="width: 15%">出版日</th>
+                <th style="width: 10%">ISBNコード</th>
+                <th style="width: 12%">貸出開始日</th>
+                <th style="width: 12%">貸出終了日</th>
+                <th style="width: 8%">状態</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td scope="row" class="align-middle">{{ item.id }}</td>
+                {% if item.book_id.image_url %}
+                <td scope="row" class="align-middle"><img src="{{ item.book_id.image_url }}" style="width:50px; height:70px;"></td>
+                {% else %}
+                <td scope="row" class="align-middle"><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></td>
+                {% endif %}
+                <td scope="row" class="align-middle">{{ item.book_id.title }}</a></td>
+                <td scope="row" class="align-middle">{{ item.book_id.author }}</td>
+                <td scope="row" class="align-middle">{{ item.book_id.publisher }}</td>
+                <td scope="row" class="align-middle">{{ item.book_id.pub_date }}</td>
+                <td scope="row" class="align-middle">{{ item.book_id.isbn }}</td>
+                <td scope="row" class="align-middle">{{ item.start }}</td>
+                <td scope="row" class="align-middle">{{ item.end }}</td>
+                {% if item.return_date == None %}
+                    {% if item.cancel_date == None %}
+                        {% if item.start > today %}
+                            <td scope="row" class="align-middle">予約待ち</td>
+                        {% elif today > item.end %}
+                            <td scope="row" class="align-middle">未返却</td>
+                        {% else %}
+                            <td scope="row" class="align-middle">貸出中</td>
+                        {% endif %}
+                    {% else %}
+                        <td scope="row" class="align-middle">予約取消</td>
+                    {% endif %}
+                {% else %}
+                    <td scope="row" class="align-middle">返却済</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+        <!--ページネーション-->
+        <ul class="pagination justify-content-center">
+            {% if data.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}">&laquo; 最初へ</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link">&laquo; 最初へ</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">&laquo; 前へ</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+                <a class="page-link">{{ data.number }}/{{ data.paginator.num_pages }}</a>
+            </li>
+
+            {% if data.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{% url 'search_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link">次へ &raquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">最後へ &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+
+{% endblock %}

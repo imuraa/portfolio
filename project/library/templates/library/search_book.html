@@ -36,19 +36,19 @@
             <tbody>
                 {% for item in data %}
                 <tr>
-                    <td scope="row">{{ item.id }}</td>
+                    <td scope="row" class="align-middle">{{ item.id }}</td>
                     {% if item.image_url %}
-                    <td scope="row"><img src="{{ item.image_url }}" style="width:50px; height:70px;"></td>
+                    <td scope="row" class="align-middle"><img src="{{ item.image_url }}" style="width:50px; height:70px;"></td>
                     {% else %}
-                    <td scope="row"><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></td>
+                    <td scope="row" class="align-middle"><img src="{% static 'library/images/no_image.jpg' %}" style="width:50px; height:70px;"></td>
                     {% endif %}
-                    <td scope="row"><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></td>
-                    <td scope="row">{{ item.author }}</td>
-                    <td scope="row">{{ item.publisher }}</td>
-                    <td scope="row">{{ item.pub_date }}</td>
-                    <td scope="row">第{{ item.version }}版</td>
-                    <td scope="row">{{ item.isbn }}</td>
-                    <td scope="row">{{ item.category }}</td>
+                    <td scope="row" class="align-middle"><a href="{% url 'book_detail' item.id %}">{{ item.title }}</a></td>
+                    <td scope="row" class="align-middle">{{ item.author }}</td>
+                    <td scope="row" class="align-middle">{{ item.publisher }}</td>
+                    <td scope="row" class="align-middle">{{ item.pub_date }}</td>
+                    <td scope="row" class="align-middle">第{{ item.version }}版</td>
+                    <td scope="row" class="align-middle">{{ item.isbn }}</td>
+                    <td scope="row" class="align-middle">{{ item.category }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

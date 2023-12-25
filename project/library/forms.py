@@ -18,7 +18,7 @@ class BookAdminForm(forms.ModelForm):
 
 #書籍検索フォーム
 class SearchForm(forms.Form):
-    search = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    search = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'class': 'form-control','placeholder': 'タイトル、著者、ISBN'}))
 
 
 #貸出期間設定フォーム

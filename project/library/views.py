@@ -16,8 +16,11 @@ from django.db.models import F
 #マイページ
 @login_required(login_url='login')
 def index(request):
+    today = datetime.datetime.today().date()
+    data = Rental.objects.filter(user_id=request.user, end__lt=today)
     params = {
         'login_user':request.user,
+        'data':data,
     }
     return render(request, 'library/index.html', params)
 
@@ -149,7 +152,7 @@ def reservation_completed(request, num):
 #書籍返却画面
 @login_required(login_url='login')
 def return_book(request, num=1):
-    data = Rental.objects.filter(user_id=request.user, return_date=None)
+    data = Rental.objects.filter(user_id=request.user, return_date=None, cancel_date=None)
     page = Paginator(data, 10)
     msg = '全' + str(data.count()) + '件'
     params = {
@@ -189,11 +192,16 @@ def confirm_return(request, num):
         }
         return render(request, "library/return_completed.html", params)
 
+
 #貸出返却履歴画面
 @login_required(login_url='login')
 def history(request):
+    today = datetime.datetime.today().date()
+    data = Rental.objects.filter(user_id=request.user).order_by("-start")
     params = {
         'login_user':request.user,
+        'data':data,
+        'today':today,
     }
-    return HttpResponse('ここは貸出返却履歴画面です')
+    return render(request, "library/history.html", params)
 

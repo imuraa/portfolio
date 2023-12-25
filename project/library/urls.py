@@ -13,4 +13,5 @@ urlpatterns = [
     path('return_book/<int:num>', views.return_book, name='return_book'),
     path('confirm_return/<int:num>', views.confirm_return, name='confirm_return'),
     path('history', views.history, name='history'),
+    path('history/<int:num>', views.history, name='history'),
 ]
