@@ -51,14 +51,7 @@ class Book(models.Model):
 
     def __str__(self):
         return '<Book:id=' + str(self.id) + ',' + self.title + '>'
-    
-    def clean(self):
-        if self.purchase_date:
-            formatted_date = str(self.purchase_date)
 
-            # 購入日が'%Y-%m-%d'の形式でない場合エラー
-            if not re.match(r'^\d{4}-\d{1,2}-\d{1,2}$', formatted_date):
-                raise ValidationError({'purchase_date': ['正しい日付形式で購入日を入力してください。 (例: YYYY-MM-DD)']})
     
 
 def validate_past_date(value):
