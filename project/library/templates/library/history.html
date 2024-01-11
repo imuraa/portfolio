@@ -61,10 +61,10 @@
         <ul class="pagination justify-content-center">
             {% if data.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="{% url 'search_book' %}">&laquo; 最初へ</a>
+                <a class="page-link" href="{% url 'history' %}">&laquo; 最初へ</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="{% url 'search_book' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
+                <a class="page-link" href="{% url 'history' %}/{{ data.previous_page_number }}">&laquo; 前へ</a>
             </li>
             {% else %}
             <li class="page-item">
@@ -81,10 +81,10 @@
 
             {% if data.has_next %}
             <li class="page-item">
-                <a class="page-link" href="{% url 'search_book' %}/{{ data.next_page_number }}">次へ &raquo;</a>
+                <a class="page-link" href="{% url 'history' %}/{{ data.next_page_number }}">次へ &raquo;</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="{% url 'search_book' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
+                <a class="page-link" href="{% url 'history' %}/{{ data.paginator.num_pages }}">最後へ &raquo;</a>
             </li>
             {% else %}
             <li class="page-item">

@@ -17,7 +17,7 @@ from django.db.models import F
 @login_required(login_url='login')
 def index(request):
     today = datetime.datetime.today().date()
-    data = Rental.objects.filter(user_id=request.user, end__lt=today)
+    data = Rental.objects.filter(user_id=request.user, end__lt=today, return_date=None, cancel_date=None)
     params = {
         'login_user':request.user,
         'data':data,
@@ -28,7 +28,6 @@ def index(request):
 #書籍検索画面
 @login_required(login_url='login')
 def search_book(request, num=1):
-    
     if (request.method == "POST"):
         form = SearchForm(request.POST)
         search = request.POST["search"]
@@ -71,6 +70,8 @@ def book_detail(request, num):
         'book':book,
         'status':status,
     }
+    if 'form_data' in request.session:
+        del request.session['form_data']
     return render(request, 'library/book_detail.html', params)
 
 
@@ -111,7 +112,8 @@ def set_period(request, num):
             return render(request, 'library/set_period.html', params)
     else:
         #画面遷移（GET）した時
-        form = RentalForm(request.session.get('form_data'))
+        if ('form_data' in request.session):
+            params['form'] = RentalForm(request.session.get('form_data'))
         return render(request, 'library/set_period.html', params)
     
 
@@ -195,12 +197,13 @@ def confirm_return(request, num):
 
 #貸出返却履歴画面
 @login_required(login_url='login')
-def history(request):
+def history(request, num=1):
     today = datetime.datetime.today().date()
     data = Rental.objects.filter(user_id=request.user).order_by("-start")
+    page = Paginator(data, 10)
     params = {
         'login_user':request.user,
-        'data':data,
+        'data':page.get_page(num),
         'today':today,
     }
     return render(request, "library/history.html", params)

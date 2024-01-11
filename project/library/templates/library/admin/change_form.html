@@ -38,62 +38,49 @@
                                         <script>
                                             async function getInfo(){
                                                 const isbn = document.getElementById("id_isbn").value;
-                                                if (isbn == "") {
-                                                    alert("ISBNコードを入力して下さい");
-                                                    return;
+                                                const apiBaseUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+                                                const apiUrl = apiBaseUrl + isbn;
+                                                const res = await fetch(apiUrl);
+                                                const data = await res.json();
+                                                const volumeInfo = data.items[0].volumeInfo; //書籍情報
+                                                const saleInfo = data.items[0].saleInfo;     //販売情報
+                                                //取得した書籍情報、販売情報の各データを整理
+                                                const title = volumeInfo.title ? volumeInfo.title : null;
+                                                const author = volumeInfo.authors ? volumeInfo.authors : null;
+                                                const publisher = volumeInfo.publisher ? volumeInfo.publisher : null;
+                                                const pub_date = volumeInfo.publishedDate ? volumeInfo.publishedDate : null;
+                                                const image_url = volumeInfo.imageLinks.thumbnail ? volumeInfo.imageLinks.thumbnail : null;
+                                                const price = saleInfo.listPrice ? saleInfo.listPrice.amount : null;
+                                                //入力フォームに値をセット
+                                                document.getElementById("id_title").value = title;
+                                                document.getElementById("id_author").value = author;
+                                                document.getElementById("id_publisher").value = publisher;
+                                                document.getElementById("id_pub_date").value = pub_date;
+                                                document.getElementById("id_image_url").value = image_url;
+                                                if (image_url) {
+                                                    document.getElementById("thumbnail").src = image_url;
                                                 } else {
-                                                    //isbnの形式検証（13桁の数字）
-                                                    var regex = /[0-9]{13}/;
-                                                    var test_result = regex.test(isbn);
-                                                    if (!test_result) {
-                                                        alert("ISBNコードを正しい形式で入力して下さい\n（13桁の数字、ハイフン抜き）");
-                                                        return;
-                                                    } else {
-                                                        const apiBaseUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
-                                                        const apiUrl = apiBaseUrl + isbn;
-                                                        const res = await fetch(apiUrl);
-                                                        const data = await res.json();
-                                                        const volumeInfo = data.items[0].volumeInfo; //書籍情報
-                                                        const saleInfo = data.items[0].saleInfo;     //販売情報
-                                                        //取得した書籍情報、販売情報の各データを整理
-                                                        const title = volumeInfo.title ? volumeInfo.title : null;
-                                                        const author = volumeInfo.authors ? volumeInfo.authors : null;
-                                                        const publisher = volumeInfo.publisher ? volumeInfo.publisher : null;
-                                                        const pub_date = volumeInfo.publishedDate ? volumeInfo.publishedDate : null;
-                                                        const image_url = volumeInfo.imageLinks.thumbnail ? volumeInfo.imageLinks.thumbnail : null;
-                                                        const price = saleInfo.listPrice ? saleInfo.listPrice.amount : null;
-                                                        //入力フォームに値をセット
-                                                        document.getElementById("id_title").value = title;
-                                                        document.getElementById("id_author").value = author;
-                                                        document.getElementById("id_publisher").value = publisher;
-                                                        document.getElementById("id_pub_date").value = pub_date;
-                                                        document.getElementById("id_image_url").value = image_url;
-                                                        if (image_url) {
-                                                            document.getElementById("thumbnail").src = image_url;
-                                                        } else {
-                                                            document.getElementById("thumbnail").src = "{% static 'library/images/no_image.jpg' %}";
-                                                        }
-                                                        document.getElementById("id_price").value = price;
-
-                                                        //処理完了メッセージ
-                                                        //データの取得に失敗した項目がある場合は項目名を列挙する
-                                                        const defaultMessage = "以下の項目のデータの取得に失敗しました。\n\n"
-                                                        let message = defaultMessage;
-                                                        message += title ? "" : "・タイトル\n";
-                                                        message += author ? "" : "・著者\n";
-                                                        message += publisher ? "" : "・出版社\n";
-                                                        message += pub_date ? "" : "・出版日\n";
-                                                        message += image_url ? "" : "・画像URL\n";
-                                                        message += price ? "" : "・価格\n";
-
-                                                        if (message == defaultMessage) {
-                                                            alert("全項目のデータの取得に成功しました。")
-                                                        } else {
-                                                            alert(message);
-                                                        }
-                                                        return;
-                                                    }
+                                                    document.getElementById("thumbnail").src = "{% static 'library/images/no_image.jpg' %}";
                                                 }
+                                                document.getElementById("id_price").value = price;
+
+                                                //処理完了メッセージ
+                                                //データの取得に失敗した項目がある場合は項目名を列挙する
+                                                const defaultMessage = "以下の項目のデータの取得に失敗しました。\n\n"
+                                                let message = defaultMessage;
+                                                message += title ? "" : "・タイトル\n";
+                                                message += author ? "" : "・著者\n";
+                                                message += publisher ? "" : "・出版社\n";
+                                                message += pub_date ? "" : "・出版日\n";
+                                                message += image_url ? "" : "・画像URL\n";
+                                                message += price ? "" : "・価格\n";
+
+                                                if (message == defaultMessage) {
+                                                    alert("全項目のデータの取得に成功しました。")
+                                                } else {
+                                                    alert(message);
+                                                }
+                                                return;
                                             }
                                             const button = document.getElementById("getInfoBtn");
                                             button.addEventListener('click', getInfo);

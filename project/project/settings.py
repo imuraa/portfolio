@@ -129,3 +129,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# 日付フォーマット追加
+#from django.conf.global_settings import DATE_INPUT_FORMATS
+ 
+#ATE_INPUT_FORMATS += ('%Y-%m','%Y/%m/%d')
