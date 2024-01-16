@@ -23,21 +23,32 @@
                                     <div class="readonly">{{ field.contents }}</div>
                                 {% else %}
                                     <!--画像プレビュー-->
-                                    {% if field.field.name == 'image_url' %}
+                                    {% if field.field.name == 'image' %}
                                         {% if field.field.value %}
-                                            <img id="thumbnail" src="{{ field.field.value }}">
+                                            <img src="{{ field.field.value.url }}" style="width:100px; height:150px;">
+                                            <!-- <img id="thumbnail" src="{{ field.field.value }}"> -->
                                         {% else %}
                                             {% load static %}
                                             <img id="thumbnail" src="{% static 'library\images\no_image.jpg' %}">
                                         {% endif %}
                                     {% endif %}
+
                                     {{ field.field }}
+
                                     <!--書籍情報取得ボタン-->
                                     {% if field.field.name == 'isbn' %} 
                                         <input type="button" value="書籍情報取得" id="getInfoBtn">
                                         <script>
                                             async function getInfo(){
+                                                const isbnRegex = /[0-9]{13}/;
                                                 const isbn = document.getElementById("id_isbn").value;
+                                                if (isbn == "") {
+                                                    alert("ISBNコードを入力してください");
+                                                    return;
+                                                } else if (!(isbnRegex.test(isbn))) {
+                                                    alert("ISBNコードを正しい形式（13桁の数字、ハイフン抜き）で入力してください");
+                                                    return;
+                                                }
                                                 const apiBaseUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
                                                 const apiUrl = apiBaseUrl + isbn;
                                                 const res = await fetch(apiUrl);

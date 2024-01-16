@@ -135,3 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #from django.conf.global_settings import DATE_INPUT_FORMATS
  
 #ATE_INPUT_FORMATS += ('%Y-%m','%Y/%m/%d')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

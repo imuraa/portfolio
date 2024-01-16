@@ -15,15 +15,14 @@ class BookAdminForm(forms.ModelForm):
     class Meta:
         model   = Book
         fields  = "__all__"
+
+    image_url = forms.URLField(label='画像URL', required=False)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['purchase_date'].error_messages = {
-            'invalid': '日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例：2019-11-25）',
-        }
-        self.fields['pub_date'].error_messages = {
-            'invalid': '日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例：2019-11-25）',
-        }
+        
+        self.fields['purchase_date'].error_messages['invalid']='日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例:2019-11-25）'
+        self.fields['pub_date'].error_messages['invalid'] = '日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例:2019-11-25）'
 
 #書籍検索フォーム
 class SearchForm(forms.Form):

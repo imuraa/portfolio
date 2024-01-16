@@ -41,12 +41,11 @@ class Book(models.Model):
     author = models.CharField(max_length=60,verbose_name="著者")
     publisher = models.CharField(max_length=50,verbose_name="出版社")
     pub_date = models.DateField(verbose_name="出版日")
-    image_url = models.URLField(verbose_name="画像リンク", blank=True, null=True)
+    image = models.ImageField(verbose_name="画像", blank=True, null=True)
     price = models.IntegerField(verbose_name="価格")
     purchase_date = models.DateField(verbose_name="購入日")
     version = models.IntegerField(verbose_name="版数")
     category = models.ForeignKey(Category,on_delete=models.PROTECT, default=17, verbose_name="カテゴリ", validators=[validate_blank_category])
-    #location = models.CharField(max_length=50,verbose_name="保管場所")
     location = models.ForeignKey(Location, on_delete=models.PROTECT, default=6, verbose_name="保管場所", validators=[validate_blank_location])
 
     def __str__(self):
