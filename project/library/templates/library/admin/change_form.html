@@ -23,13 +23,12 @@
                                     <div class="readonly">{{ field.contents }}</div>
                                 {% else %}
                                     <!--画像プレビュー-->
-                                    {% if field.field.name == 'image' %}
+                                    {% if field.field.name == 'image_url' %}
                                         {% if field.field.value %}
-                                            <img src="{{ field.field.value.url }}" style="width:100px; height:150px;">
-                                            <!-- <img id="thumbnail" src="{{ field.field.value }}"> -->
+                                            <img id="thumbnail" src="{{ field.field.value }}" style="width:100px; height:150px;">
                                         {% else %}
                                             {% load static %}
-                                            <img id="thumbnail" src="{% static 'library\images\no_image.jpg' %}">
+                                            <img id="thumbnail" src="{% static 'library\images\no_image.jpg' %}" style="width:100px; height:150px;">
                                         {% endif %}
                                     {% endif %}
 

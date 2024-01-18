@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='book',
             name='category',
-            field=models.ForeignKey(default=17, on_delete=django.db.models.deletion.PROTECT, to='library.category', validators=[library.models.validate_blank_category], verbose_name='カテゴリ'),
+            #field=models.ForeignKey(default=17, on_delete=django.db.models.deletion.PROTECT, to='library.category', validators=[library.models.validate_blank_category], verbose_name='カテゴリ'),
+            field=models.ForeignKey(default=17, on_delete=django.db.models.deletion.PROTECT, to='library.category', verbose_name='カテゴリ'),
         ),
         migrations.AlterField(
             model_name='book',

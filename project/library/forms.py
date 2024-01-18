@@ -1,6 +1,6 @@
 from django import forms
 from .models import Book, Location, Rental
-#from bootstrap_datepicker import DatePickerInput
+
 
 #管理画面-保管場所登録フォーム
 class LocationAdminForm(forms.ModelForm):
@@ -9,6 +9,7 @@ class LocationAdminForm(forms.ModelForm):
         model   = Location
         fields  = "__all__"
 
+
 #管理画面-書籍登録フォーム
 class BookAdminForm(forms.ModelForm):
 
@@ -16,13 +17,14 @@ class BookAdminForm(forms.ModelForm):
         model   = Book
         fields  = "__all__"
 
-    image_url = forms.URLField(label='画像URL', required=False)
+    #image_url = forms.URLField(label='画像URL', required=False)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
         self.fields['purchase_date'].error_messages['invalid']='日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例:2019-11-25）'
         self.fields['pub_date'].error_messages['invalid'] = '日付は正しい形式（ハイフン区切り、年月日必須）で入力してください。\n（例:2019-11-25）'
+
 
 #書籍検索フォーム
 class SearchForm(forms.Form):
@@ -42,7 +44,6 @@ class RentalForm(forms.ModelForm):
                    'return_date': forms.HiddenInput(),
                   }
             
-
     def clean(self):
         cleaned_data = super().clean()
         start = cleaned_data.get("start")
