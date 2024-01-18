@@ -51,6 +51,7 @@
                                                 const apiBaseUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
                                                 const apiUrl = apiBaseUrl + isbn;
                                                 const res = await fetch(apiUrl);
+                                                console.log("APIリクエスト送信"); //デバッグ用
                                                 const data = await res.json();
                                                 const volumeInfo = data.items[0].volumeInfo; //書籍情報
                                                 const saleInfo = data.items[0].saleInfo;     //販売情報
