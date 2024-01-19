@@ -1,21 +1,15 @@
 from django.contrib import admin
 from .models import Book, Location, Category, Rental
 from .forms import BookAdminForm
-import requests
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
-from io import BytesIO
-from PIL import Image
-import os
-from django.conf import settings
-from django.core.files.base import ContentFile
-import uuid
 
 
+#保管場所管理画面
 class LocationAdmin(admin.ModelAdmin):
     list_display = ["location"]
 
-
+#書籍管理画面
 class BookAdmin(admin.ModelAdmin):
     change_form_template = 'library/admin/change_form.html'
     form = BookAdminForm
@@ -44,45 +38,11 @@ class BookAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="{no_image_url}" style="width:50px; height:75px;">')
 
     thumbnail_preview.short_description = '画像'
-    
-    # def save_model(self, request, obj, form, change):
-    #     #画像URLを基に画像形式で書影を保存、imageフィールドに登録
-
-    #     #画像URLを取得
-    #     image_url = form.cleaned_data['image_url']
-
-    #     #画像を取得
-    #     if (image_url):
-    #         response = requests.get(image_url)
-    #         image_data = BytesIO(response.content)
-
-    #         #画像をPillowで開く
-    #         temp_image = Image.open(image_data)
-
-    #         #一時保存する画像のファイル名
-    #         temp_filename = "temp_image.png"
-
-    #         # 画像を一時保存
-    #         temp_image.save(os.path.join(settings.MEDIA_ROOT, temp_filename))
-
-    #         #ユニークなファイル名を生成 (32文字のUUID)
-    #         filename = uuid.uuid4().hex
-
-    #         #imageに画像を登録
-    #         with open(os.path.join(settings.MEDIA_ROOT, temp_filename), 'rb') as image_file:
-    #             obj.image.save(filename, ContentFile(image_file.read()), save=True)
 
 
-    #         #一時保存した画像ファイルを削除する
-    #         os.remove(os.path.join(settings.MEDIA_ROOT, temp_filename))
-
-    #     #save_model関数をオーバーライドしてデータベースに変更を反映
-    #     super(BookAdmin, self).save_model(request, obj, form, change)
-
-
+#貸出予約管理画面
 class RentalAdmin(admin.ModelAdmin):
     list_display = ["id", "book_id", "user_id", "start", "end", "return_date", "cancel_date"]
-
 
 
 admin.site.register(Book, BookAdmin)
