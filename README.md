@@ -41,11 +41,6 @@ MySQL 8.0.35
    ```
    pip install django==4.2.5
    ```
-2. インストールが終わったら以下のコマンドを実行します
-   ```
-   python -m django --version
-   ```
-3. 「4.2.5」とバージョンが表示されたらDjangoのインストールは完了です
 
 ### 3. MySQLのインストール
 1. 下記のURLからMySQLの公式サイトにアクセスします  
@@ -72,52 +67,84 @@ MySQL 8.0.35
 21. 「詳細設定」タブにある「環境変数」ボタンを押します
 22. システム環境変数の中から「Path」を選択し、「編集」ボタンを押します
 23. 「新規」ボタンをクリックします
-24. コマンドプロンプトでmysqlコマンドを使えるようにする為、規定値で設定した場合は以下のパスを入力します  
+24. コマンドプロンプトでmysqlコマンドを使えるようにする為、規定値で設定した場合は以下のパスを入力します
+    ```
     C:\Program Files\MySQL\MySQL Server 8.0\bin
+    ```
 25. 変更を適用する為、OKボタンをクリックして設定画面を閉じます
-26. 全ての画面を閉じたら再起動します
-27. WindowsキーとRキーを同時に押します
-28. 「ファイル名を指定して実行」というウィンドウが表示されるので「cmd」と入力してOKを押します
-29. コマンドプロンプトが表示されるので、「mysql --version」と入力しEnterキーを押します
-30. 「mysql  Ver 8.x.x for Win64 on x86_64 (MySQL Community Server - GPL)」とバージョン情報が表示されればMySQLのインストールは完了です
+26. 再起動します
+27. コマンドプロンプトで以下のコマンドを実行します
+    ```
+    mysql --version
+    ```
+28. 以下のようにバージョン情報が表示されたらMySQLのインストールは完了です
+    ```
+    mysql  Ver 8.x.x for Win64 on x86_64 (MySQL Community Server - GPL)
+    ```
 
 #### 4. データベースの作成
-1. コマンドプロンプトで「mysql -u root -p」と入力しEnterキーを押します
-2. 「Enter password:」と表示されるので、手順3-14で設定したパスワードを入力しEnterキーを押します
-3. 「Enter password(again):」と表示されるので、もう一度パスワードを入力しEnterキーを押します
-4. ログインに成功すると「mysql>」と表示され、SQLコマンドの入力待ち状態になります
-5. 「CREATE DATABASE xxxx(任意のデータベース名);」と入力しEnterキーを押します
-6. 「show databases;」と入力しEnterキーを押します
-7. 5で作成したデータベースの名前が一覧に表示されればデータベースの作成は完了です
-8. 「exit;」と入力しEnterキーを押し、SQLコマンドの入力待ち状態から元のコマンドプロンプトの状態に戻ります
+1. コマンドプロンプトで以下のコマンドを実行し、MySQLにログインします
+   ```
+   mysql -u root -p
+   Enter password:MYSQL_ROOT_PASSWORD
+   Enter password(again):MYSQL_ROOT_PASSWORD
+   ```
+2. Djangoアプリで使用するデータベースを作成します
+   ```
+   mysql> CREATE DATABASE YOUR_DATABASE_NAME;
+   ```
+3. 以下のコマンドを実行し、作成したデータベースの名前が表示されればデータベースの作成は完了です
+   ```
+   mysql> show databases;
+   ```
+   ```
+   +--------------------+
+   | Database           |
+   +--------------------+
+   | xxxxx              |
+   | YOUR_DATABASE_NAME |
+   | xxxxx              |
+   | xxxxx              |
+   +--------------------+
+   ```
+   
+4. 以下のコマンドでMySQLサーバの接続を終了します
+   ```
+   mysql> exit;
+   ```
 
 ### 5. mysqlclientのインストール
-1. コマンドプロンプトで「python -m pip install mysqlclient」と入力し、Enterキーを押します
-2. インストールが開始します
-3. 最後に「Successfully installed mysqlclient-x.x.x」と表示されたら完了です
+1. コマンドプロンプトで以下のコマンドを実行します
+   ```
+   python -m pip install mysqlclient
+   ```
 
 ### 6. リポジトリのクローン
-1. 本リポジトリの画面の緑のCodeボタンをクリックします
-2. HTTPSを選択してURLをコピーします
-3. Git Bashを起動します
-4. Djangoプロジェクトを配置したいディレクトリに移動します
-5. 「git clone コピーしたURL（`https://github.com/xxxx/xxxx.git`）」と入力し、Enterキーを押します
-6. ローカルに「portfolio」フォルダが複製されたらリポジトリのクローンは完了です
+1. Git Bashを起動します
+2. Djangoプロジェクトを配置したいディレクトリに移動します
+3. 以下のコマンドを実行します
+   ```
+   git clone https://github.com/imuraa/portfolio.git
+   ```
 
 ### 7. local_settings.pyの作成
-1. コマンドプロンプトを開き、手順6で複製した「portfolio」ディレクトリに移動します
-2. dirコマンドで「project」フォルダとREADME.mdファイルがあることを確認し、cdコマンドで「project」ディレクトリに移動します
-3. dirコマンドで「manage.py」というファイルがあることを確認します
-4. ここで「python manage.py shell」と入力しEnterキーを押します
-5. シェルが起動するので「from django.core.management.utils import get_random_secret_key」と入力しEnterキーを押します
-6. 次に「get_random_secret_key()」と入力しEnterキーを押します
-7. Djangoの秘密鍵が生成されるので、コピーします
-8. 更に「project」ディレクトリに移動します
-9. dirコマンドでsettings.py等のファイルがあることを確認し、ここに「local_settings.py」という名前でファイルを作成します
-10. local_settings.pyにはDjangoの秘密鍵とデータベースの情報を記述します。
+1. コマンドプロンプトを起動し、手順6で複製したportfolio>projectディレクトリに移動します(manage.pyがあるディレクトリ)
+2. 以下のコマンドを実行します
+   ```
+   python manage.py shell
+   ```
+3. シェルが起動するので以下のコマンドを実行します
+   ```
+   from django.core.management.utils import get_random_secret_key
+   get_random_secret_key()
+   ```
+4. Djangoの秘密鍵が生成されるのでコピーします
+5. portfolio>project>projectディレクトリに移動します(settings.pyがあるディレクトリ)
+6. local_settings.pyという名前でファイルを作成します
+7. local_settings.pyにはDjangoの秘密鍵とデータベースの情報を記述して保存します。
 
 ```
-SECRET_KEY = '手順7-7で生成した秘密鍵'
+SECRET_KEY = '手順7-4でコピーした秘密鍵'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
@@ -128,25 +155,34 @@ DATABASES = {
 }   
 ```  
 
-11. local_settings.pyの内容を保存します
-
 ### 8. マイグレーション
-1. コマンドプロンプトを開き、手順6で複製した「portfolio」ディレクトリに移動します
-2. dirコマンドで「project」フォルダとREADME.mdファイルがあることを確認し、cdコマンドで「project」ディレクトリに移動します
-3. dirコマンドで「manage.py」というファイルがあることを確認します
-4. ここで「pythoon manage.py makemigrations」と入力しEnterキーを押します
-5. 次に「python manage.py migrate」と入力しEnterキーを押します
+1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
+2. 以下のコマンドを実行します
+   ```
+   pythoon manage.py makemigrations
+   ```
+3. 続けて以下のコマンドを実行します
+   ```
+   python manage.py migrate
+   ```
 
 ### 9. 管理者の作成
-1. コマンドプロンプトを開き、手順6で複製した「portfolio」ディレクトリに移動します
-2. dirコマンドで「project」フォルダとREADME.mdファイルがあることを確認し、cdコマンドで「project」ディレクトリに移動します
-3. dirコマンドで「manage.py」というファイルがあることを確認します
-4. ここで「python manage.py createsperuser」と入力しEnterキーを押します
-5. Username:と表示されるので任意のユーザ名を入力しEnterキーを押します
-6. Email address:と表示されるのでメールアドレスを入力します　指定しない場合はそのままEnterキーを押します
-7. Password:と表示されるので任意のパスワードを入力します
-8. Password(again):と表示されるのでもう一度パスワードを入力します
-9. 「Superuser created successfully.」と表示されたら管理者の作成は完了です
+1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
+2. 以下のコマンドを実行します
+   ```
+   python manage.py createsperuser
+   ```
+3. 管理者のユーザ名、メールアドレス、パスワードを設定します
+   ```
+   Username(leave blank to use 'xxx'):
+   Email address:
+   Password:
+   Password(again):
+   ```
+4. 以下のメッセージが表示されれば管理者の作成は完了です
+    ```
+    Superuser created successfully.
+    ```
 
 ### 10. 開発用サーバの起動
 1. コマンドプロンプトを開き、手順6で複製した「portfolio」ディレクトリに移動します
