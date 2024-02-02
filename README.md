@@ -135,13 +135,12 @@ MySQL 8.0.35
    ```
 3. シェルが起動するので以下のコマンドを実行します
    ```
-   from django.core.management.utils import get_random_secret_key
-   get_random_secret_key()
+   >>> from django.core.management.utils import get_random_secret_key
+   >>> get_random_secret_key()
    ```
 4. Djangoの秘密鍵が生成されるのでコピーします
 5. portfolio>project>projectディレクトリに移動します(settings.pyがあるディレクトリ)
-6. local_settings.pyという名前でファイルを作成します
-7. local_settings.pyにはDjangoの秘密鍵とデータベースの情報を記述して保存します。
+6. local_settings.pyという名前でファイルを作成し、Djangoの秘密鍵とデータベースの情報を記述して保存します。
 
 ```
 SECRET_KEY = '手順7-4でコピーした秘密鍵'
