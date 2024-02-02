@@ -83,7 +83,7 @@ MySQL 8.0.35
     ```
 
 #### 4. データベースの作成
-1. コマンドプロンプトで以下のコマンドを実行し、MySQLにログインします
+1. コマンドプロンプトで以下のコマンドを実行し、MySQLサーバに接続します
    ```
    mysql -u root -p
    Enter password:MYSQL_ROOT_PASSWORD
