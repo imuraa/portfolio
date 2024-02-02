@@ -36,12 +36,16 @@ MySQL 8.0.35
 6. 「Add python.exe to PATH」にチェックを入れ、「Install Now」をクリックします
 7. インストールが終わると「Setup was successful」と表示されるので「close」をクリックして画面を閉じます
 
-### 2. DJangoのインストール
-1. WindowsキーとRキーを同時に押します
-2. 「ファイル名を指定して実行」というウィンドウが表示されるので「cmd」と入力してOKを押します
-3. コマンドプロンプトが表示されるので「pip install django==4.2.5」と入力してEnterキーを押します
-4. インストールが終わると最後にSuccessfully installed Django-4.2.5と表示され、再び入力待ちの状態になります
-5. 「python -m django --version」と入力してEnterキーを押し、「4.2.5」とバージョンが表示されたらDjangoのインストールは完了です
+### 2. Djangoのインストール
+1. コマンドプロンプトで以下のコマンドを実行します
+   ```
+   pip install django==4.2.5
+   ```
+2. インストールが終わったら以下のコマンドを実行します
+   ```
+   python -m django --version
+   ```
+3. 「4.2.5」とバージョンが表示されたらDjangoのインストールは完了です
 
 ### 3. MySQLのインストール
 1. 下記のURLからMySQLの公式サイトにアクセスします  
