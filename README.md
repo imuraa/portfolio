@@ -157,11 +157,11 @@ DATABASES = {
 
 ### 8. マイグレーション
 1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
-2. 以下のコマンドを実行します
+2. 以下のコマンドを実行してマイグレーションファイルを生成します
    ```
    python manage.py makemigrations
    ```
-3. 続けて以下のコマンドを実行します
+3. 以下のコマンドを実行し、マイグレーションを実行します
    ```
    python manage.py migrate
    ```
