@@ -82,7 +82,7 @@ MySQL 8.0.35
     mysql  Ver 8.x.x for Win64 on x86_64 (MySQL Community Server - GPL)
     ```
 
-#### 4. データベースの作成
+### 4. データベースの作成
 1. コマンドプロンプトで以下のコマンドを実行し、MySQLサーバに接続します
    ```
    mysql -u root -p
