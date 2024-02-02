@@ -159,7 +159,7 @@ DATABASES = {
 1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
 2. 以下のコマンドを実行します
    ```
-   pythoon manage.py makemigrations
+   python manage.py makemigrations
    ```
 3. 続けて以下のコマンドを実行します
    ```
