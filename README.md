@@ -189,6 +189,6 @@ DATABASES = {
    ```
    pythoon manage.py runserver
    ```
-5. Webブラウザから以下のURLにアクセスします
+5. Webブラウザから以下のURLにアクセスします  
    http://127.0.0.1:8000/library
 6. 図書管理アプリのログイン画面が表示されたら開発用サーバの起動は完了です
