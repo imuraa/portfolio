@@ -29,10 +29,11 @@ MySQL 8.0.35
 1. 下記のURLからPythonの公式サイトにアクセスします  
    https://www.python.org/
 2. メニューから「Downloads」をクリックします
-3. 「Download Python 3.x.x」ボタンをクリックします（xには現在のバージョンを表す数字が入ります）
-4. ダウンロードした「python-3.x.x-amd64.exe」を起動します
-5. 「Add python.exe to PATH」にチェックを入れ、「Install Now」をクリックします
-6. インストールが終わると「Setup was successful」と表示されるので「close」をクリックして画面を閉じます
+3. 画面を下にスクロールすると過去のバージョンの一覧があるので、その中から「Python 3.11.5」を探してクリックします
+4. 画面を下にスクロールし、Filesから「Windows installer(64-bit)」をクリックします
+5. ダウンロードした「python-3.11.5-amd64.exe」を起動します
+6. 「Add python.exe to PATH」にチェックを入れ、「Install Now」をクリックします
+7. インストールが終わると「Setup was successful」と表示されるので「close」をクリックして画面を閉じます
 
 #### 2. DJangoのインストール
 1. WindowsキーとRキーを同時に押します
