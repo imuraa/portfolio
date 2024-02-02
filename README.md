@@ -148,9 +148,9 @@ SECRET_KEY = '手順7-4でコピーした秘密鍵'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': '手順4-5で作成したデータベース名',
-    'USER': 'MySQLのユーザ名',
-    'PASSWORD': 'MySQLのパスワード',
+    'NAME': 'YOUR_DATABASE_NAME',
+    'USER': 'MYSQL_USER',
+    'PASSWORD': 'MYSQL_PASSWORD',
   }
 }   
 ```  
@@ -185,10 +185,11 @@ DATABASES = {
     ```
 
 ### 10. 開発用サーバの起動
-1. コマンドプロンプトを開き、手順6で複製した「portfolio」ディレクトリに移動します
-2. dirコマンドで「project」フォルダとREADME.mdファイルがあることを確認し、cdコマンドで「project」ディレクトリに移動します
-3. dirコマンドで「manage.py」というファイルがあることを確認します
-4. ここで「pythoon manage.py runserver」と入力しEnterキーを押します
+1. コマンドプロンプトを開き、手順6で複製したportfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
+2. 以下のコマンドを実行し、Djangoの開発用サーバを起動します
+   ```
+   pythoon manage.py runserver
+   ```
 5. Webブラウザから以下のURLにアクセスします
    http://127.0.0.1:8000/library
-6. 分散型図書管理アプリのログイン画面が表示されたら開発用サーバの起動は完了です
+6. 図書管理アプリのログイン画面が表示されたら開発用サーバの起動は完了です
