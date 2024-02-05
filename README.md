@@ -33,7 +33,7 @@ mysqlclient 2.2.0
    ```
    
 ### 2. 必要モジュールの一括インストール
-1. portfolio>projectディレクトリに移動し、以下のコマンドを実行します
+1. コマンドプロンプトでportfolio/projectディレクトリに移動し、以下のコマンドを実行します
    ```
    pip install -r requirements.txt
    ```
@@ -70,19 +70,18 @@ mysqlclient 2.2.0
    ```
 
 ### 4. local_settings.pyの作成
-1. コマンドプロンプトを起動し、手順1で複製したportfolio>projectディレクトリに移動します(manage.pyがあるディレクトリ)
-2. 以下のコマンドを実行します
+1. コマンドプロンプトでportfolio/projectディレクトリに移動し、以下のコマンドを実行します(manage.pyがあるディレクトリ)
    ```
    python manage.py shell
    ```
-3. シェルが起動するので以下のコマンドを実行します
+2. シェルが起動するので以下のコマンドを実行します
    ```
    >>> from django.core.management.utils import get_random_secret_key
    >>> get_random_secret_key()
    ```
-4. Djangoの秘密鍵が生成されるのでコピーします
-5. portfolio>project>projectディレクトリに移動します(settings.pyがあるディレクトリ)
-6. local_settings.pyという名前でファイルを作成し、Djangoの秘密鍵とデータベースの情報を記述して保存します。
+3. Djangoの秘密鍵が生成されるのでコピーします
+4. portfolio/project/projectディレクトリに移動します(settings.pyがあるディレクトリ)
+5. local_settings.pyという名前でファイルを作成し、Djangoの秘密鍵とデータベースの情報を記述して保存します。
 
 ```
 SECRET_KEY = '手順7-4でコピーした秘密鍵'
@@ -97,18 +96,18 @@ DATABASES = {
 ```  
 
 ### 5. マイグレーション
-1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
-2. 以下のコマンドを実行してマイグレーションファイルを生成します
+1. コマンドプロンプトでportfolio/projectディレクトリに移動します（manage.pyがあるディレクトリ）
+2. 以下のコマンドでマイグレーションファイルを生成します
    ```
    python manage.py makemigrations
    ```
-3. 以下のコマンドを実行し、マイグレーションを実行します
+3. 以下のコマンドでマイグレーションを実行します
    ```
    python manage.py migrate
    ```
 
 ### 6. 管理者の作成
-1. コマンドプロンプトを開き、portfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
+1. コマンドプロンプトでportfolio/projectディレクトリに移動します（manage.pyがあるディレクトリ）
 2. 以下のコマンドを実行します
    ```
    python manage.py createsperuser
@@ -126,8 +125,8 @@ DATABASES = {
     ```
 
 ### 7. 開発用サーバの起動
-1. コマンドプロンプトを開き、手順6で複製したportfolio>projectディレクトリに移動します（manage.pyがあるディレクトリ）
-2. 以下のコマンドを実行し、Djangoの開発用サーバを起動します
+1. コマンドプロンプトでportfolio/projectディレクトリに移動します（manage.pyがあるディレクトリ）
+2. 以下のコマンドでDjangoの開発用サーバを起動します
    ```
    pythoon manage.py runserver
    ```
