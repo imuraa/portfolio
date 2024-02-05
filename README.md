@@ -84,7 +84,7 @@ mysqlclient 2.2.0
 5. local_settings.pyという名前でファイルを作成し、Djangoの秘密鍵とデータベースの情報を記述して保存します。
 
 ```
-SECRET_KEY = '手順7-4でコピーした秘密鍵'
+SECRET_KEY = '手順4-3でコピーした秘密鍵'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
