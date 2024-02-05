@@ -7,7 +7,8 @@
 Windows 11  
 Python 3.11.5  
 Django 4.2.5  
-MySQL 8.0.35  
+MySQL 8.0.35
+mysqlclient 2.2.0
 
 ## 環境構築手順(編集中)
 ### 前提条件
@@ -15,22 +16,29 @@ MySQL 8.0.35
 ・当該環境にはGit、Python、MySQLが既にインストールされているものとします。
 
 ### 目次
-1. Djangoのインストール
-2. データベースの作成
-3. mysqlclientのインストール
-4. リポジトリのクローン
-5. local_settings.pyの作成
-6. マイグレーション
-7. 管理者の作成
-8. 開発用サーバの起動
+1. リポジトリのクローン
+2. 必要モジュールの一括インストール
+3. データベースの作成
+6. local_settings.pyの作成
+7. マイグレーション
+8. 管理者の作成
+9. 開発用サーバの起動
 
-### 1. Djangoのインストール
-1. コマンドプロンプトで以下のコマンドを実行します
+### 1. リポジトリのクローン
+1. Git Bashを起動します
+2. Djangoプロジェクトを配置したいディレクトリに移動します
+3. 以下のコマンドを実行します
    ```
-   pip install django==4.2.5
+   git clone https://github.com/imuraa/portfolio.git
+   ```
+   
+### 2. 必要モジュールの一括インストール
+1. portfolio>projectディレクトリに移動し、以下のコマンドを実行します
+   ```
+   pip install -r requirements.txt
    ```
 
-### 2. データベースの作成
+### 3. データベースの作成
 1. コマンドプロンプトで以下のコマンドを実行し、MySQLサーバに接続します
    ```
    mysql -u root -p
@@ -61,22 +69,8 @@ MySQL 8.0.35
    mysql> exit;
    ```
 
-### 3. mysqlclientのインストール
-1. コマンドプロンプトで以下のコマンドを実行します
-   ```
-   python -m pip install mysqlclient
-   ```
-
-### 4. リポジトリのクローン
-1. Git Bashを起動します
-2. Djangoプロジェクトを配置したいディレクトリに移動します
-3. 以下のコマンドを実行します
-   ```
-   git clone https://github.com/imuraa/portfolio.git
-   ```
-
-### 5. local_settings.pyの作成
-1. コマンドプロンプトを起動し、手順4で複製したportfolio>projectディレクトリに移動します(manage.pyがあるディレクトリ)
+### 4. local_settings.pyの作成
+1. コマンドプロンプトを起動し、手順1で複製したportfolio>projectディレクトリに移動します(manage.pyがあるディレクトリ)
 2. 以下のコマンドを実行します
    ```
    python manage.py shell
