@@ -7,7 +7,7 @@
 Windows 11  
 Python 3.11.5  
 Django 4.2.5  
-MySQL 8.0.35
+MySQL 8.0.35  
 mysqlclient 2.2.0
 
 ## 環境構築手順(編集中)
