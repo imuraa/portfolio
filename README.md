@@ -137,7 +137,7 @@ DATABASES = {
 1. コマンドプロンプトでportfolio/projectディレクトリに移動します（manage.pyがあるディレクトリ）
 2. 以下のコマンドを実行します
    ```
-   python manage.py createsperuser
+   python manage.py createsuperuser
    ```
 3. 管理者のユーザ名、メールアドレス、パスワードを設定します
    ```
@@ -155,8 +155,10 @@ DATABASES = {
 1. コマンドプロンプトでportfolio/projectディレクトリに移動します（manage.pyがあるディレクトリ）
 2. 以下のコマンドでDjangoの開発用サーバを起動します
    ```
-   pythoon manage.py runserver
+   python manage.py runserver
    ```
 5. Webブラウザから以下のURLにアクセスします  
    http://127.0.0.1:8000/library
-6. 図書管理アプリのログイン画面が表示されたら開発用サーバの起動は完了です
+6. 分散型図書管理アプリのログイン画面が表示されたら開発用サーバの起動は完了です  
+   ユーザ登録、本の登録などは管理者画面から行うことが出来ます  
+   http://127.0.0.1:8000/admin
