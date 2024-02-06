@@ -15,7 +15,7 @@
 データベースに管理したい本を登録することができます。  
 ISBNコードを入力するだけでGoogleBooksAPIから自動で  
 本のタイトル、著者名、出版社などの情報を取得できます。 
-![本の登録](https://github.com/imuraa/portfolio/assets/146056765/4f66ecc2-b4c3-4ad7-9eda-e56e881bfed4)
+![書籍の登録](https://github.com/imuraa/portfolio/assets/146056765/1a7f4654-db18-419f-a91d-133eae6a927a)
 
 ### 本の検索
 借りたい本を検索することができます。  
